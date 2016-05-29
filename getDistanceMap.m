@@ -1,8 +1,8 @@
 function [ distMap ] = getDistanceMap( img)
 Xsize = size(img,1);
 Ysize = size(img,2);
-Nx = [1 0 -1 0];
-Ny = [0 1 0  -1];
+Nx = [1 1 0 -1 -1 -1   0 1];
+Ny = [0 1 1 1   0 -1  -1 -1];
 Lx = zeros(1,Xsize*Ysize);
 Ly = zeros(1,Xsize*Ysize);
 [x, y] = ind2sub(Xsize,find(img==1));
@@ -15,7 +15,7 @@ while curIdx < curSize1
     curX = Lx(curIdx);
     curY = Ly(curIdx);
     curIdx = curIdx+1;
-    for i=1:4
+    for i=1:8
         NCurX = curX+Nx(i);
         NCurY = curY+Ny(i);
         if(NCurX<=Xsize && NCurX>0 && NCurY<=Ysize && NCurY>0) 
@@ -33,7 +33,7 @@ while curIdx < curSize
     curIdx = curIdx+1;
     if (img(curX,curY)==0)
         minVal= 1e7;
-        for i=1:4
+        for i=1:8
             NCurX = curX+Nx(i);
             NCurY = curY+Ny(i);
             if(NCurX<=Xsize && NCurX>0 && NCurY<=Ysize && NCurY>0)
